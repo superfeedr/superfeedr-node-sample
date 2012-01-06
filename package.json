@@ -1,9 +1,9 @@
 {
   "name": "superfeedr-node-sample",
-  "version": "0.1.0-1",
+  "version": "0.1.0-2",
   "dependencies": {
     "socket.io": "v0.8.x",
     "express": "v2.5.x",
-    "superfeedr": ">=0.0.2"
+    "superfeedr": ">=0.0.1"
   }
 }
