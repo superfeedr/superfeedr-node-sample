@@ -1,6 +1,5 @@
 {
-  "name": "nodeapps-socket.io",
-  "author": "Nodejitsu Inc. <support@nodejitsu.com>",
+  "name": "superfeedr-node-sample",
   "scripts": {
     "start": "./bin/server"
   },
@@ -10,6 +9,4 @@
     "express": "v2.5.x",
     "superfeedr": ">=0.0.2"
   },
-  "analyze": false,
-  "subdomain": "nodejitsu-sample"
 }
