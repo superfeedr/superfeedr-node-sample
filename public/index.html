@@ -1,0 +1,27 @@
+<!doctype HTML>
+<html>
+  <head>
+    <!-- Socket.io serves its client-side code over this route automatically -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+    
+    <script>
+      window.onload = function () {
+        // Connect to socket.io
+        var socket = io.connect('/');
+
+        // React to a received message
+        socket.on('notification', function (data) {
+            for (i in data.entries) {
+                var entry = data.entries[i];
+                $('#inbox').prepend($('<li>').append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
+            }
+        });
+      };
+    </script>
+  </head>
+  <body>
+      <ul id="inbox">
+      </ul>
+  </body>
+</html>

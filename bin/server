@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+var express = require("express"),
+    app = express.createServer(),
+    io = require('socket.io').listen(app),
+    superfeedr = require('superfeedr').Superfeedr; // socket.io may listen to an http
+
+// Use Express to serve static content, such as our index.html
+app.configure(function(){
+  app.use(express.static(__dirname + '/../public'));
+});
+
+client = new superfeedr("nodesample", "nodesample");
+client.on('connected', function() {
+    console.log("Connected!");
+    client.subscribe("http://superfeedr.com/track/music", function(err, feed) {
+        console.log("Susbcribed");
+    });
+});
+
+
+//Socket.io emits this event when a connection is made.
+io.sockets.on('connection', function (socket) {
+  // Emit a message to send it to the client.
+  client.on('notification', function(notification) {
+      socket.emit('notification', notification);
+  });
+  
+});
+
+app.listen(8080);
+
+console.log('socket.io server started on port 8080');
