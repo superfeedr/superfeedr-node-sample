@@ -17,15 +17,14 @@ var keywords = ["superfeedr", "pubsubhubbub", "msgboy", "pubsub"];
 
 client = new superfeedr(superfeedr_login, superfeedr_password);
 client.on('connected', function() {
+    console.log("connected");
     for (var keyword in keywords) {
         client.subscribe("http://superfeedr.com/track/"+keyword, function(err, feed) {
             console.log("Susbcribed to " + keyword);
         });
-    });
+    }
     client.unsubscribe("http://superfeedr.com/track/music", function(err, feed) {
-        console.log("Susbcribed to " + keyword);
     });
-    
 });
 
 // Using long polling on heroku as they don't support websockets just yet.
@@ -38,6 +37,7 @@ io.configure(function () {
 io.sockets.on('connection', function (socket) {
   // Emit a message to send it to the client.
   client.on('notification', function(notification) {
+      console.log(notification);
       socket.emit('notification', notification);
   });
   
