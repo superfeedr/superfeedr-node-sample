@@ -20,7 +20,4 @@ Inbox.prototype.each = function(block) {
     this.lifo.reverse().forEach(block);
 };
 
-
-
-
 exports.inbox = new Inbox();
