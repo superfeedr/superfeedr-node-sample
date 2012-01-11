@@ -10,7 +10,10 @@ app.configure(function(){
   app.use(express.static(__dirname + '/../public'));
 });
 
-client = new superfeedr(process.env.SUPERFEEDR_LOGIN, process.env.SUPERFEEDR_PASSWORD);
+var superfeedr_login = process.env.SUPERFEEDR_LOGIN || '',
+    superfeedr_password = process.env.SUPERFEEDR_PASSWORD || '';
+
+client = new superfeedr(superfeedr_login, superfeedr_password);
 client.on('connected', function() {
     console.log("Connected!");
     client.subscribe("http://superfeedr.com/track/music", function(err, feed) {
@@ -35,4 +38,4 @@ io.sockets.on('connection', function (socket) {
 
 app.listen(process.env.PORT);
 
-console.log('socket.io server started on port ' + process.env.PORT);
+console.log('socket.io server started on port ' + (process.env.PORT || 8080));

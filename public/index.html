@@ -4,6 +4,7 @@
     <!-- Socket.io serves its client-side code over this route automatically -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     
     <script>
       window.onload = function () {
@@ -21,7 +22,43 @@
     </script>
   </head>
   <body>
-      <ul id="inbox">
-      </ul>
+      
+      
+      <div class="topbar">
+        <div class="fill">
+          <div class="container">
+            <a class="brand" href="#">Project name</a>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+            <form action="" class="pull-right">
+              <input class="input-small" type="text" placeholder="Username">
+              <input class="input-small" type="password" placeholder="Password">
+              <button class="btn" type="submit">Sign in</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <div class="content">
+          <div class="page-header">
+            <h1>Page name <small>Supporting text or tagline</small></h1>
+          </div>
+          <div class="row">
+              <ul id="inbox">
+              </ul>
+          </div>
+        </div>
+
+        <footer>
+          <p>&copy; Company 2011</p>
+        </footer>
+
+      </div> <!-- /container -->
+
   </body>
 </html>
