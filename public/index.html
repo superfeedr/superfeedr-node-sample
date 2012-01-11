@@ -90,7 +90,7 @@
                 var entry = data.entries[i];
                 if($('#' + entry.id)) {
                     $('#inbox').prepend($('<li>', {id: entry.id}).append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
-                });
+                }
             }
         });
     };
