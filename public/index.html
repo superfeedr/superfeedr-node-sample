@@ -88,9 +88,11 @@
             var label = data.feed.url.split("/").pop()
             for (i in data.entries) {
                 var entry = data.entries[i];
-                console.log($('#' + entry.id));
-                if($('#' + entry.id)) {
-                    $('#inbox').prepend($('<li>', {id: entry.id}).append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
+                var id = btoa(entry.id);
+                console.log('#' + id);
+                console.log($('#' + id));
+                if($('#' + id)) {
+                    $('#inbox').prepend($('<li>', {id: id}).append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
                 }
             }
         });
