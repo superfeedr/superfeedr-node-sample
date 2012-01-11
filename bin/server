@@ -1,49 +1,52 @@
 #!/usr/bin/env node
 
-var express = require("express"),
-    app = express.createServer(),
-    io = require('socket.io').listen(app),
-    superfeedr = require('superfeedr').Superfeedr; // socket.io may listen to an http
+var express = require('express'),
+inbox = require('./inbox.js').inbox,
+app = express.createServer(),
+io = require('socket.io').listen(app),
+superfeedr = require('superfeedr').Superfeedr; // socket.io may listen to an http
 
 // Use Express to serve static content, such as our index.html
 app.configure(function(){
-  app.use(express.static(__dirname + '/../public'));
+    app.use(express.static(__dirname + '/../public'));
 });
 
-var superfeedr_login = process.env.SUPERFEEDR_LOGIN || '',
-    superfeedr_password = process.env.SUPERFEEDR_PASSWORD || '';
+var superfeedr_login = 'nodesample', //process.env.SUPERFEEDR_LOGIN,
+superfeedr_password = 'nodesample'; //process.env.SUPERFEEDR_PASSWORD || '';
 
-var keywords = ["superfeedr", "pubsubhubbub", "msgboy", "pubsub"];
+var keywords = ['music', 'superfeedr', 'pubsubhubbub', 'msgboy', 'pubsub'];
 
 client = new superfeedr(superfeedr_login, superfeedr_password);
 client.on('connected', function() {
-    console.log("connected");
-    for (var keyword in keywords) {
-        client.subscribe("http://superfeedr.com/track/"+keyword, function(err, feed) {
-            console.log("Susbcribed to " + keyword);
+    for (var i in keywords) {
+        var keyword = keywords[i];
+        client.subscribe('http://superfeedr.com/track/'+keyword, function(err, feed) {
+            console.log('Susbcribed to', feed.url);
         });
     }
-    client.unsubscribe("http://superfeedr.com/track/music", function(err, feed) {
-    });
+});
+
+client.on('notification', function(notification) {
+    inbox.push(notification);
 });
 
 // Using long polling on heroku as they don't support websockets just yet.
 io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
+    io.set('transports', ['xhr-polling']); 
+    io.set('polling duration', 10); 
+    io.set('log level', 1);
 });
 
 //Socket.io emits this event when a connection is made.
 io.sockets.on('connection', function (socket) {
-  // Emit a message to send it to the client.
-  client.on('notification', function(notification) {
-      console.log(notification);
-      socket.emit('notification', notification);
-  });
-  
+    inbox.each(function(notification) {
+        socket.emit('notification', notification);
+    });
+    inbox.on('added', function(notification) {
+        socket.emit('notification', notification);
+    });
 });
 
 var port = process.env.PORT || 8080;
 app.listen(port);
 
-console.log('socket.io server started on port ' + port);

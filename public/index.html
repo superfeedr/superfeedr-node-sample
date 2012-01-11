@@ -4,7 +4,6 @@
     <!-- Socket.io serves its client-side code over this route automatically -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -12,7 +11,7 @@
     <![endif]-->
 
     <!-- Le styles -->
-    <link href="../1.4.0/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <style type="text/css">
       /* Override some defaults */
       html, body {
@@ -86,9 +85,10 @@
 
         // React to a received message
         socket.on('notification', function (data) {
+            var label = data.feed.url.split("/").pop()
             for (i in data.entries) {
                 var entry = data.entries[i];
-                $('#inbox').prepend($('<li>').append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
+                $('#inbox').prepend($('<li>').append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
             }
         });
     };
