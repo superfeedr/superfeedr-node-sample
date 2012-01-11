@@ -17,7 +17,7 @@ var keywords = ["superfeedr", "pubsubhubbub", "msgboy", "pubsub"];
 
 client = new superfeedr(superfeedr_login, superfeedr_password);
 client.on('connected', function() {
-    keywords.each(function(keyword) {
+    for (var keyword in keywords) {
         client.subscribe("http://superfeedr.com/track/"+keyword, function(err, feed) {
             console.log("Susbcribed to " + keyword);
         });
