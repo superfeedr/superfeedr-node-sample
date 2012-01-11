@@ -64,13 +64,13 @@
       }
       
       .label.superfeedr {
-        background-color: #c43c35;
+          background-color: #46a546;
       }
       .label.pubsubhubbub {
         background-color: #f89406;
       }
       .label.pubsub {
-        background-color: #46a546;
+          background-color: #c43c35;
       }
       .label.msgboy {
         background-color: #62cffc;
@@ -88,7 +88,9 @@
             var label = data.feed.url.split("/").pop()
             for (i in data.entries) {
                 var entry = data.entries[i];
-                $('#inbox').prepend($('<li>').append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
+                if($('#' + entry.id) {
+                    $('#inbox').prepend($('<li>', {id: entry.id}).append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
+                });
             }
         });
     };
