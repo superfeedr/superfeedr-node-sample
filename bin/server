@@ -13,12 +13,19 @@ app.configure(function(){
 var superfeedr_login = process.env.SUPERFEEDR_LOGIN || '',
     superfeedr_password = process.env.SUPERFEEDR_PASSWORD || '';
 
+var keywords = ["superfeedr", "pubsubhubbub", "msgboy", "pubsub"];
+
 client = new superfeedr(superfeedr_login, superfeedr_password);
 client.on('connected', function() {
-    console.log("Connected!");
-    client.subscribe("http://superfeedr.com/track/music", function(err, feed) {
-        console.log("Susbcribed");
+    keywords.each(function(keyword) {
+        client.subscribe("http://superfeedr.com/track/"+keyword, function(err, feed) {
+            console.log("Susbcribed to " + keyword);
+        });
     });
+    client.unsubscribe("http://superfeedr.com/track/music", function(err, feed) {
+        console.log("Susbcribed to " + keyword);
+    });
+    
 });
 
 // Using long polling on heroku as they don't support websockets just yet.
