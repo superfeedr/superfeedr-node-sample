@@ -11,8 +11,8 @@ app.configure(function(){
     app.use(express.static(__dirname + '/../public'));
 });
 
-var superfeedr_login = 'nodesample', //process.env.SUPERFEEDR_LOGIN,
-superfeedr_password = 'nodesample'; //process.env.SUPERFEEDR_PASSWORD || '';
+var superfeedr_login = process.env.SUPERFEEDR_LOGIN,
+superfeedr_password = process.env.SUPERFEEDR_PASSWORD;
 
 var keywords = ['music', 'superfeedr', 'pubsubhubbub', 'msgboy', 'pubsub'];
 
