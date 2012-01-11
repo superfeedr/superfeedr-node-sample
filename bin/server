@@ -36,6 +36,7 @@ io.sockets.on('connection', function (socket) {
   
 });
 
-app.listen(process.env.PORT);
+var port = process.env.PORT || 8080;
+app.listen(port);
 
-console.log('socket.io server started on port ' + (process.env.PORT || 8080));
+console.log('socket.io server started on port ' + port);
