@@ -88,7 +88,7 @@
             var label = data.feed.url.split("/").pop()
             for (i in data.entries) {
                 var entry = data.entries[i];
-                if($('#' + entry.id) {
+                if($('#' + entry.id)) {
                     $('#inbox').prepend($('<li>', {id: entry.id}).append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
                 });
             }
