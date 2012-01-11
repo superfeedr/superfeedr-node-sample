@@ -91,7 +91,7 @@
                 var id = btoa(entry.id);
                 console.log('#' + id);
                 console.log($('#' + id));
-                if($('#' + id)) {
+                if($('#' + id).length == 0) {
                     $('#inbox').prepend($('<li>', {id: id}).append($('<span>', {class: 'label ' + label}).text(label)).append($('<a>', {href: entry.permalinkUrl}).text(entry.title)));
                 }
             }
